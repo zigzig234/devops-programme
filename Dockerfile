@@ -10,14 +10,14 @@ RUN apt-get update -y && \
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Python app into the container and change ownership of /app
-COPY --chown=appuser:appuser ./app /app
-
-# Create the requirements.txt file in the Docker image
-RUN echo "Flask==3.0.0" > /app/requirements.txt
+# Copy requirements file and change owner
+COPY --chown=appuser:appuser requirements.txt .
 
 # Install any Python dependencies
 RUN pip install -r requirements.txt
+
+# Copy the Python app into the container and change ownership of /app
+COPY --chown=appuser:appuser ./app /app
 
 # Switch to non-root user
 USER appuser
