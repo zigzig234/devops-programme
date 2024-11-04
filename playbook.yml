@@ -1,0 +1,36 @@
+- name: Build, push, and run Docker container for Python app
+  hosts: localhost
+  become: true
+  vars:
+    # Variables to define
+    image_name: "zigziglar234/python-app"
+    image_tag: "v0.2"
+    listen_port: "5000"
+    dockerfile_path: "./Dockerfile"  
+
+  tasks:
+    - name: Build Docker image using the existing Dockerfile
+      community.docker.docker_image:
+        build:
+          path: "."               
+          dockerfile: "{{ dockerfile_path }}"  
+        name: "{{ image_name }}"
+        tag: "{{ image_tag }}"
+        push: yes
+        source: build
+      register: build_result
+
+    - name: Verify if image was built and pushed successfully
+      ansible.builtin.debug:
+        msg: "Docker image {{ image_name }}:{{ image_tag }} built and pushed successfully."
+      when: build_result.changed
+
+    - name: Run Docker container from the built image
+      community.docker.docker_container:
+        name: python_app_container
+        image: "{{ image_name }}:{{ image_tag }}"
+        ports:
+          - "{{ listen_port }}:{{ listen_port }}"
+        env:
+          PORT: "{{ listen_port }}"
+        restart_policy: always
