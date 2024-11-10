@@ -6,9 +6,18 @@
     image_name: "zigziglar234/python-app"
     image_tag: "v0.2"
     listen_port: "5000"
-    dockerfile_path: "./Dockerfile"  
+    dockerfile_path: "./Dockerfile"
+      
+  vars_files:
+    - dockerhub_credentials.yml
 
   tasks:
+    - name: Log in to Docker Hub
+      community.general.docker_login:
+        username: "{{ dockerhub_username }}"
+        password: "{{ dockerhub_password }}"
+      register: login_result
+    
     - name: Build Docker image using the existing Dockerfile
       community.docker.docker_image:
         build:
@@ -19,6 +28,7 @@
         push: yes
         source: build
       register: build_result
+      when: login_result is succeeded  
 
     - name: Verify if image was built and pushed successfully
       ansible.builtin.debug:
