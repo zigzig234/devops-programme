@@ -6,4 +6,3 @@
 - Running tests
 
 - Deploying to production
-
