@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check .editorconfig
-        uses: editorconfig-checker/action@v2
+        uses: editorconfig-checker/editorconfig-checker@v2.3.3
 
       - name: Run pylint
         run: |
