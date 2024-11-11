@@ -69,11 +69,11 @@ jobs:
             -Dsonar.projectKey=YourProjectKey
             -Dsonar.organization=YourOrg
       - name: Run Snyk for dependency security scan
-        uses: snyk/actions@v1
-        with:
-          args: test
+        uses: snyk/actions/python@3.11@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
 
   docker:
     runs-on: ubuntu-latest
