@@ -34,10 +34,13 @@ jobs:
         with:
           python-version: '3.11.8'
           cache: 'pip'
+      
+      - name: Run flask
+        run: | 
+          pip install flask   
 
       - name: Run pylint
         run: |
-          pip install flask
           pip install pylint
           pylint -d C0114,C0115,C0116 $(git ls-files '*.py')
 

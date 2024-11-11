@@ -1,12 +1,5 @@
 {
   "default": true,
-  "MD001": false,  // Heading levels should only increment by one (disabled)
-  "MD002": true,   // First heading should be a top-level heading (enabled)
-  "MD003": true,   // Atx style headers should be used (enabled)
-  "MD004": true,   // Unordered list style (enabled)
-  "MD007": true,   // Unordered list indentation (enabled)
-  "MD009": true,   // Trailing spaces (enabled)
-  "MD010": true,   // Code block style (enabled)
-  "MD013": true,   // Line length (enabled)
-  "MD029": true    // Ordered list items should be aligned (enabled)
+  "MD013": false,
+  "MD029": { "style": "ordered" }
 }
