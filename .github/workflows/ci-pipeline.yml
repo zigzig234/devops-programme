@@ -66,8 +66,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=YourProjectKey
-            -Dsonar.organization=YourOrg
+            -Dsonar.projectKey=e7973da2f0438be0b76a3b705fd8e27f3736f873
+            -Dsonar.organization=zigzig234-SvDoU@github
       - name: Run Snyk for dependency security scan
         uses: snyk/actions/python@master
         with:
@@ -92,7 +92,7 @@ jobs:
           IMAGE_TAG=${{ github.sha }}
           docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-app:$IMAGE_TAG .
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@v0.28.0
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }}
         id: trivy
