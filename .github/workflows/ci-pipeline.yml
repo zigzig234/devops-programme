@@ -36,7 +36,9 @@ jobs:
         with:
           python-version: '3.11.8'
           cache: 'pip'
-
+      - name: Install flask
+        run:
+          pip install flask
       - name: Run pylint
         run: |
           pip install pylint
