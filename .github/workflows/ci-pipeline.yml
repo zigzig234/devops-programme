@@ -1,3 +1,4 @@
+
 name: CI Pipeline
 
 on:
@@ -34,26 +35,19 @@ jobs:
         with:
           python-version: '3.11.8'
           cache: 'pip'
-      
-      - name: Run flask
-        run: | 
-          pip install flask   
 
       - name: Run pylint
         run: |
           pip install pylint
           pylint -d C0114,C0115,C0116 $(git ls-files '*.py')
-
       - name: Run black for code formatting
         run: |
           pip install black
           black --check app
-
       - name: Run unit tests
         run: |
           cd app/
           python -m unittest app_test.py
-
   security:
     runs-on: ubuntu-latest
     steps:
@@ -71,13 +65,12 @@ jobs:
           args: >
             -Dsonar.projectKey=YourProjectKey
             -Dsonar.organization=YourOrg
-
-      - name: Snyk
-        uses: snyk/actions/python@3.11@master
+      - name: Run Snyk for dependency security scan
+        uses: snyk/actions@v1
+        with:
+          args: test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
 
   docker:
     runs-on: ubuntu-latest
@@ -95,7 +88,6 @@ jobs:
         run: |
           IMAGE_TAG=${{ github.sha }}
           docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-app:$IMAGE_TAG .
-
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@v0.3.1
         with:
