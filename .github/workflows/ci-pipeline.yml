@@ -37,6 +37,7 @@ jobs:
 
       - name: Run pylint
         run: |
+          pip install flask
           pip install pylint
           pylint -d C0114,C0115,C0116 $(git ls-files '*.py')
 
@@ -68,12 +69,12 @@ jobs:
             -Dsonar.projectKey=YourProjectKey
             -Dsonar.organization=YourOrg
 
-      - name: Run Snyk for dependency security scan
-        uses: snyk/actions@v1
-        with:
-          args: test
+      - name: Snyk
+        uses: snyk/actions/python@3.11@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
 
   docker:
     runs-on: ubuntu-latest
@@ -93,7 +94,7 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-app:$IMAGE_TAG .
 
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@v0.3.1
+        uses: aquasecurity/trivy-action@latest
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }}
         id: trivy
