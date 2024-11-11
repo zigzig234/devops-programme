@@ -1,0 +1,19 @@
+# EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+
+# Top-most EditorConfig file
+root = true
+
+# Python files
+[*.py]
+indent_style = space
+indent_size = 4
+max_line_length = 80
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = true
+insert_final_newline = true
