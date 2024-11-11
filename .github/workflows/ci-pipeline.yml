@@ -21,7 +21,7 @@ jobs:
       - name: Run pylint
         run: |
           pip install pylint
-          pylint app/app.py
+          pylint -d C0114,C0115,C0116 $(git ls-files '*.py')
 
       - name: Run black for code formatting
         run: |
