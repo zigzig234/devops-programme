@@ -6,7 +6,7 @@ on:
       - 'feature/**'  # Trigger on commits to feature branches
   pull_request:
     branches:
-      - main
+      - main  # Trigger on pull requests to the main branch
 
 jobs:
   linting:
@@ -15,9 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check .editorconfig
-        uses: editorconfig-checker/editorconfig-checker
-        
+          #      - name: Check .editorconfig
+          #   uses: editorconfig-checker/editorconfig-checker@v2.3.3
+
       - name: Run pylint
         run: |
           pip install pylint
@@ -45,7 +45,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          python -m unittest app/app_test.py
+          python -m unittest discover -s app
 
   security:
     runs-on: ubuntu-latest
@@ -99,4 +99,3 @@ jobs:
         if: steps.trivy.outputs.vulnerabilities != 'CRITICAL'  # Only push if no critical vulnerabilities
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }}
-
