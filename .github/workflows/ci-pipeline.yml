@@ -69,7 +69,7 @@ jobs:
             -Dsonar.projectKey=YourProjectKey
             -Dsonar.organization=YourOrg
       - name: Run Snyk for dependency security scan
-        uses: snyk/actions/python@v3.11
+        uses: snyk/actions/python@master
         with:
           args: --severity-threshold=high
         env:
