@@ -66,7 +66,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=e7973da2f0438be0b76a3b705fd8e27f3736f873
+            -Dsonar.projectKey=f60fed28e23d5c6f1926e66529c44e7b6f5f5d3c
             -Dsonar.organization=zigzig234
             -Dsonar.branch.name=${{ github.ref_name }}
       - name: Run Snyk for dependency security scan
