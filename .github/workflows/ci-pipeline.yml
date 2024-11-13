@@ -59,7 +59,14 @@ jobs:
 
       - name: Run gitleaks for secrets scanning
         uses: zricethezav/gitleaks-action@v1
-
+      
+      - name: Check if SONAR_TOKEN is set
+        run: |
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "Error: SONAR_TOKEN is not set!"
+            exit 1
+          fi
+        
       - name: Run SonarCloud SAST
         uses: SonarSource/sonarcloud-github-action@master
         env:
