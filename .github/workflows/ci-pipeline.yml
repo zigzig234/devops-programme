@@ -69,6 +69,7 @@ jobs:
             -Dsonar.projectKey=f60fed28e23d5c6f1926e66529c44e7b6f5f5d3c
             -Dsonar.organization=zigzig234
             -Dsonar.branch.name=${{ github.ref_name }}
+      
       - name: Run Snyk for dependency security scan
         uses: snyk/actions/python@master
         with:
