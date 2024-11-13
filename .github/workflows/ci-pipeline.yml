@@ -26,6 +26,7 @@ jobs:
           globs: '**/*.{md,markdown}'
 
   testing:
+    needs: linting 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -52,6 +53,7 @@ jobs:
           cd app/
           python -m unittest app_test.py
   security:
+    needs: linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -91,13 +93,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
      
-      - name: Snyk Fix Vulnerabilities
-        run: snyk fix --all-projects
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-
   docker:
+    needs: [linting, testing, security]  
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
