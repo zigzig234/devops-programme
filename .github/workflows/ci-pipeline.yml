@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
           #      - name: Check .editorconfig
           #   uses: editorconfig-checker/editorconfig-checker@v2.3.3
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -55,7 +55,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+          with:
+             fetch-depth=0
 
       - name: Run gitleaks for secrets scanning
         uses: zricethezav/gitleaks-action@v1
@@ -68,7 +70,12 @@ jobs:
           fi
         
       - name: Run SonarCloud SAST
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v3.1.0
+        
+        env:
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         SONAR_HOST_URL: https://sonarcloud.io  
         with:
           args: >
             -Dsonar.projectKey=f60fed28e23d5c6f1926e66529c44e7b6f5f5d3c
@@ -76,8 +83,6 @@ jobs:
             -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
             -Dsonar.pullrequest.branch=${{ github.head_ref }}
             -Dsonar.pullrequest.base=${{ github.base_ref }} 
-        env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       
       - name: Run Snyk for dependency security scan
         uses: snyk/actions/python@master
@@ -90,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
