@@ -57,7 +57,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-           fetch-depth=0
+          fetch-depth: 0
 
       - name: Run gitleaks for secrets scanning
         uses: zricethezav/gitleaks-action@v1
