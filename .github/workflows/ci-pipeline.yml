@@ -90,6 +90,12 @@ jobs:
           args: --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+     
+      - name: Snyk Fix Vulnerabilities
+        run: snyk fix --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
   docker:
     runs-on: ubuntu-latest
