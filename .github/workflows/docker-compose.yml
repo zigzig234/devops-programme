@@ -1,11 +1,14 @@
 version: '3.8'
+
 services:
-  flask_app:
+  app:
     build:
-      context: .
+      context: ../..
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5000:3000"
+    volumes:
+      - ./app:/app  # Mount the app directory to sync changes
     environment:
-      - FLASK_ENV=development
-
+      - PYTHONUNBUFFERED=1  # Ensures Python output is logged in real time
+    command: python3 app.py  # Runs the app as defined in CMD
