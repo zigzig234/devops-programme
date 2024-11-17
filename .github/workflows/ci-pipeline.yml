@@ -86,7 +86,7 @@ jobs:
             -Dsonar.pullrequest.base=${{ github.base_ref }}
 
       - name: Install Snyk CLI
-        run: pip install snyk
+        run: curl -sL https://snyk.io/install | bash
 
       - name: Run Snyk Fix to Apply Remediation
         run: snyk fix --all-projects --severity-threshold=high
