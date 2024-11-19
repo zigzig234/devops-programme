@@ -85,15 +85,6 @@ jobs:
             -Dsonar.pullrequest.branch=${{ github.head_ref }}
             -Dsonar.pullrequest.base=${{ github.base_ref }}
 
-            # snyk fix works only with enterprice subscription
-            #      - name: Install Snyk CLI
-            #        run: npm install -g snyk
-
-            #      - name: Run Snyk Fix to Apply Remediation
-            #        run: snyk fix --all-projects --severity-threshold=high
-            #        env:
-            #          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Run Snyk for dependency security scan
         uses: snyk/actions/python@master
         with:
