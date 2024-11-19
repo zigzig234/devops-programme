@@ -1,5 +1,5 @@
 
-# DevOps Programme V5.0
+# DevOps Programme V6.0
 
 - Triggering GitHub Actions pipeline
 
