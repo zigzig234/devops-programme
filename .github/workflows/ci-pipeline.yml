@@ -112,6 +112,10 @@ jobs:
 
       - name: Set up Trivy cache directory
         run: echo "TRIVY_CACHE=${{ runner.temp }}/trivy" >> $GITHUB_ENV
+      - name: Pre-download Trivy DB
+        run: |
+          mkdir -p ${{ runner.temp }}/trivy
+          trivy --download-db-only --cache-dir ${{ runner.temp }}/trivy
 
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@master
