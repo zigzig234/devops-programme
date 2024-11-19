@@ -112,6 +112,13 @@ jobs:
 
       - name: Set up Trivy cache directory
         run: echo "TRIVY_CACHE=${{ runner.temp }}/trivy" >> $GITHUB_ENV
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/ \
+          contrib/install.sh -o install-trivy.sh
+          sh install-trivy.sh
+          echo "${{ runner.temp }}/trivy" >> $GITHUB_PATH
+
       - name: Pre-download Trivy DB
         run: |
           mkdir -p ${{ runner.temp }}/trivy
