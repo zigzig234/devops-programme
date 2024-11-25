@@ -59,4 +59,3 @@ Create a GitHub Actions pipeline that runs on commit to a feature branch (i.e. n
   - check-added-large-files <https://github.com/pre-commit/pre-commit-hooks>
 - Setup docker-compose with build and run a container
 - Try out GitHub Actions schedule trigger event - <https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule>
-
